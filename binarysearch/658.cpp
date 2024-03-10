@@ -16,8 +16,8 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     }
     int left = lo - 1; //ATTENTION
     int right = lo;
-    for (int i = 0; i < k; i++){ //找下一个元素，有下一个元素好找
-        if (left < 0 && (right <= (int(arr.size()) - 1))){
+    for (int i = 0; i < k; i++){
+        if (left < 0 && (right <= (int(arr.size()) - 1))){ //ATTENTION:
             right++;
         }else if (left >= 0 && (right > (int(arr.size()) - 1))){
             left--;

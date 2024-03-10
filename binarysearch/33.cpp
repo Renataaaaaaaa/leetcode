@@ -12,7 +12,7 @@ int search(vector<int>& nums, int target) {
         if (nums[mid] == target){
             return mid;
         }
-        if (nums[mid] < nums[lo] && nums[mid] < nums[hi]){
+        if (nums[mid] < nums[hi]){
             if ((nums[mid] > target) || (nums[mid] < target && nums[hi] < target)){
                 hi = mid - 1;
             }else{

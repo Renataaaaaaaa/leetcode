@@ -10,24 +10,44 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode *detectCycle(ListNode *head) {
-    if (head == nullptr || head->next == nullptr){
+
+ListNode* hasCycle(ListNode *head) {
+    if (head == nullptr ){
         return nullptr;
     }
     ListNode* fast = head;
-    ListNode* slow = head;
-    do{
+    ListNode* low = head;
+
+    while(fast != nullptr && fast->next != nullptr){ //ATTENTION: 注意双指针结束位置
         fast = fast->next->next;
-        slow = slow->next;
-    }while((slow != fast && fast!= nullptr && fast->next != nullptr));
-    ListNode* slow_2 = head;
-    while(slow!=nullptr && slow->next !=nullptr && slow != slow_2){
-        slow_2 = slow_2->next;
-        slow = slow->next;
+        low = low->next;
+        if (fast == low){
+            return low;
+        }
     }
-    if (slow != slow_2){
+    return nullptr;
+}
+
+ListNode *detectCycle(ListNode *head) {
+    ListNode* first_meet = hasCycle(head);
+    if (first_meet == nullptr) {
         return nullptr;
-    }else{
-        return slow_2;
     }
+    while(head != first_meet){
+        head = head->next;
+        first_meet = first_meet->next;
+    }
+    return head;
+}
+
+int main(){
+    ListNode* node3 = new ListNode(3);
+    ListNode* node2 = new ListNode(2);
+    // ListNode* node0 = new ListNode(0);
+    // ListNode* node4 = new ListNode(4);
+    node3->next = node2;
+    node2->next = node3;
+    // node0->next = node4;
+    // node4->next = node2;
+    cout << detectCycle(node3)->val << endl;
 }

@@ -1,18 +1,23 @@
 #include <vector>
 #include <iostream>
+#include  "utils.cpp"
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
+ListNode* getMid(ListNode* head){
+    ListNode* low = head;
+    ListNode* fast = head;
+    while(fast != nullptr && fast->next != nullptr && fast->next->next != nullptr){
+        low = low->next;
+        fast = fast->next->next;
+    }
+    ListNode* res = low->next;
+    low->next = nullptr;
+    return res;
+}
+
 
 ListNode* reverseList(ListNode* l1){ //ATTENTION: remember to use this one
     ListNode* last = nullptr;
-
     while(l1!=nullptr){
         ListNode* tmp = l1->next;
         l1->next = last;
@@ -23,29 +28,25 @@ ListNode* reverseList(ListNode* l1){ //ATTENTION: remember to use this one
 }
 
 void reorderList(ListNode* head) {
-    ListNode* low = head;
-    ListNode* fast = head;
-    if (head->next == nullptr || head->next->next == nullptr) {
-        return;
-    }
-    do{
-        fast = fast->next->next;
-        low = low->next;
-
-    }while( fast != nullptr && fast->next != nullptr);
-    low = reverseList(low);
+    ListNode* mid = getMid(head);
+    mid = reverseList(mid);
     ListNode* move = head;
-    while(low != nullptr){
-        ListNode* move_tmp = move->next;
-        ListNode* low_tmp = low->next;
-        move->next = low;
-        if (low == move_tmp){
-            low->next = nullptr;
-        }else{
-            low->next = move_tmp;
-        }
-        move = move_tmp;
-        low = low_tmp;
+    while(move != nullptr &&  mid != nullptr){ //ATTENTION
+        ListNode* move_next_old = move->next;
+        ListNode* mid_next_old = mid->next;
+        move->next = mid;
+        mid->next = move_next_old;
+
+        mid = mid_next_old;
+        move = move_next_old;
     }
+    printLinkedList(head);
+}
+
+int main(){
+    vector<int> data = {1};
+    ListNode* node = generate(data);
+    reorderList(node);
+    // cout << node->val << endl;
 
 }

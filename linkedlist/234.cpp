@@ -1,14 +1,7 @@
 #include <vector>
 #include <iostream>
+#include "utils.cpp"
 using namespace std;
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
 
 ListNode* reverseList(ListNode* l1){ //ATTENTION: remember to use this one
     ListNode* last = nullptr;
@@ -21,29 +14,35 @@ ListNode* reverseList(ListNode* l1){ //ATTENTION: remember to use this one
     return last;
 }
 
-bool isPalindrome(ListNode* head) {
-    ListNode* low = head;
+ListNode* getMiddleNode(ListNode* head) {
     ListNode* fast = head;
-    if (head == nullptr || head->next == nullptr) {
-        return true;
-    }
-    if (head->next->next == nullptr){
-        return head->val == head->next->val;
-    }
-    do{
+    ListNode* low = head;
+    while(fast != nullptr && fast->next != nullptr){
         fast = fast->next->next;
         low = low->next;
-        cout << low->val << endl;
+    }
+    return low;
+}
 
-    }while( fast != nullptr && fast->next != nullptr);
-    low = reverseList(low);
-    ListNode* move = head;
-    while(low != nullptr){
-        if (move->val != low->val){
+bool isPalindrome(ListNode* head) {
+    
+    ListNode* middleNode = getMiddleNode(head);
+    cout << middleNode->val << endl;
+    middleNode = reverseList(middleNode);
+    cout << middleNode->val << endl;
+    while(middleNode != nullptr){
+        if (head->val != middleNode->val){
             return false;
         }
-        move = move->next;
-        low = low->next;
+        middleNode = middleNode->next;
+        head = head->next;
     }
     return true;
+}
+
+int main(){
+    vector<int> data = {1,2};
+    // vector<int> data = {1,2,3,2,1};
+    ListNode* head = generate(data);
+    cout << isPalindrome(head) << endl;
 }

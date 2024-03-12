@@ -33,3 +33,9 @@ delete temp;
 while(head != nullptr || mid != nullptr){
     if (mid == nullptr || (head != nullptr && head->val < mid->val)){
 ```
+
+### tip6
+穿针引线顺序
+
+### tip7
+在交换节点的时候，先记住哪个节点，就把他的父亲节点的正确指向写了

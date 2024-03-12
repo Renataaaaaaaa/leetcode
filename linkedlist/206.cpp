@@ -1,28 +1,26 @@
 #include <vector>
 #include <iostream>
+#include "utils.cpp"
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
 
-class Solution {
-public:
-    ListNode* reverseList(ListNode* head) {
-    if (head == nullptr || head->next == nullptr){
-        return head;
-    }
-    ListNode* last = nullptr, *next = nullptr;
+ListNode* reverseList(ListNode* head) {
+    // if (head == nullptr || head->next == nullptr){
+    //     return head;
+    // }
+    ListNode* prev = nullptr;
+    ListNode* next_tmp = nullptr;
     while (head != nullptr){
-        next = head->next;
-        head->next = last;
-        last = head;
-        head = next;
+        next_tmp = head->next;
+        head->next = prev;
+        prev = head;
+        head = next_tmp;
     }
-    return last; //ATTENTION
-    }
-};
+    return prev; //ATTENTION
+}
+
+int main(){
+    vector<int> data = {};
+    ListNode* node = generate(data);
+    printLinkedList(reverseList(node));
+}

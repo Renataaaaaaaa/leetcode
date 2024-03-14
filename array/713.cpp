@@ -12,7 +12,10 @@ int numSubarrayProductLessThanK(vector<int>& nums, int k) {
         while(product >= k && left <= right){
             product = product / nums[left++];
         }
-        res += right - left + 1; 
+        res += right - left + 1;  
+        // ATTENTION: how to understand:
+        // the last one is [a, b, c], add [d], 新增的数量是之前的子数组每个加上d，就是right - left + 1
+    
     }
     return res;
 }

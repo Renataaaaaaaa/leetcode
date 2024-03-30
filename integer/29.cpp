@@ -2,42 +2,49 @@
 #include <iostream>
 using namespace std;
 
-int divide(int dividend, int divisor) {
-    int coeff = -1;
-    if (divisor == -1 && dividend == INT32_MIN){
-        return INT32_MAX;
-    }
-    if (dividend > 0 && divisor > 0){
-        dividend = 0 - dividend;
-        divisor = 0 - divisor;
-    }else if (dividend <= 0 && divisor > 0)
-    {
-        coeff = 1;
-        divisor = 0 - divisor;
-    }else if (divisor <= 0 && dividend > 0){
-        dividend = 0 - dividend;
-        coeff = 1;
-    }
-    
-    int quotient = 0;
-    while(dividend <= divisor){
-        int divident_tmp = dividend;
-        int divisor_tmp = divisor;
-        int quotient_tmp = -1;
+//-2^31 变成正数越界了，所以要都变成负数
+//-2^31 / -1 = 2^31 越界，要特殊处理
 
-        while (true){
-            divident_tmp = dividend - divisor_tmp;
-            if (divisor_tmp < (INT32_MIN >> 2)){
-                break;
-            }
-            divisor_tmp = divisor_tmp + divisor_tmp;
-            if (divident_tmp > divisor_tmp){
-                break;
-            }
-            quotient_tmp = quotient_tmp + quotient_tmp;
+int divideHelp(int dividend, int divisor){
+    int result = 0;
+    
+    while(dividend <= divisor){ //be negative
+        int quotient = 1;
+        int divisor_cur = divisor;
+        while(divisor_cur >= 0xc0000000 && dividend <= (divisor_cur * 2)){ //-2147483648 / 2
+            divisor_cur = divisor_cur * 2;
+            quotient += quotient;
         }
-        dividend = divident_tmp;
-        quotient = quotient + quotient_tmp;
+        result += quotient;
+        dividend = dividend - divisor_cur;
     }
-    return quotient * coeff;
+    return result;
 }
+int divide(int dividend, int divisor) {
+    int coeff = 2;
+    if (dividend == INT32_MIN){
+        if (divisor == 1){
+            return INT32_MIN;
+        }
+        if (divisor == -1){
+            return INT32_MAX;
+        }
+    }
+    if (dividend > 0){
+        coeff--;
+        dividend = 0 - dividend;
+    }
+    if (divisor > 0){
+        divisor = 0 - divisor;
+        coeff--;
+    }
+    int quotient = divideHelp(dividend, divisor);
+    return (coeff == 1) ? (-quotient) : quotient;
+}
+
+int main(){
+    int divident = -2147483648;
+    int divisor = 1;
+    cout << divide(divident, divisor) << endl;
+}
+

@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+//处理最后的进位
 string addBinary(string a, string b) {
     string res = "";
     int i = a.size() - 1;
@@ -27,4 +28,9 @@ string addBinary(string a, string b) {
     }
     reverse(res.begin(), res.end());
     return res;
-    }
+}
+int main(){
+    string a = "";
+    string b = "";
+    cout << addBinary(a, b) << endl;
+}

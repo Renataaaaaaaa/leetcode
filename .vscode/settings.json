@@ -73,6 +73,7 @@
         "execution": "cpp",
         "unordered_set": "cpp",
         "numbers": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "__tree": "cpp"
     }
 }

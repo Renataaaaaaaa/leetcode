@@ -24,12 +24,8 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
         if (minHeap.size() < k){
             minHeap.push(make_pair(item.first, item.second));
         }else{
-            if (item.second < minHeap.top().second){
-                
-            }else{
-                minHeap.pop();
-                minHeap.push(make_pair(item.first, item.second));
-            }
+            minHeap.pop();
+            minHeap.push(make_pair(item.first, item.second));
         }
     }
     while(minHeap.size() != 0){

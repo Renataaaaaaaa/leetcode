@@ -5,4 +5,13 @@
 vector:  
 vector.push_back()  
 vector.pop_back()
-find(vector.begin(), vector.end(), item)
+find(vector.begin(), vector.end(), item)  
+  
+map:  
+map.find(sums[i] - k) != map.end()  
+
+#include <cctype>
+isalnum 数字或字母
+
+### words
+anagram 变位词

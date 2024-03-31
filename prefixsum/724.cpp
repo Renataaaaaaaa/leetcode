@@ -4,14 +4,20 @@ using namespace std;
 
 
 int pivotIndex(vector<int>& nums) {
-    vector<int> sum(nums.size());
+    int total_sum = 0;
     for(vector<int>::size_type i = 0; i < nums.size(); i++){
-        sum[i] = (i == 0) ? nums[0] : (sum[i-1] + nums[i]);
+        total_sum += nums[i];
     }
+    int sum = 0;
     for(vector<int>::size_type i = 0; i < nums.size(); i++){
-        if ( (i==0 ? 0 : sum[i-1]) == (sum[nums.size() - 1] - sum[i])){
+        sum += nums[i];
+        if (sum - nums[i] == total_sum - sum){
             return i;
         }
     }
     return -1;
+}
+int main(){
+    vector<int> data = {2,-1,1};
+    cout << pivotIndex(data) << endl;
 }

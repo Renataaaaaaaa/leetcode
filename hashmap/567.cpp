@@ -5,8 +5,6 @@
 #include <numeric>
 using namespace std;
 
-class Solution {
-public:
 bool allZero(vector<int> & str_char){
     bool all_zero = true;
     for (auto c: str_char){
@@ -39,4 +37,8 @@ bool checkInclusion(string s1, string s2) {
     }
     return false;
 }
-};
+int main(){
+    string s1 = "ab";
+    string s2 = "eidbaooo";
+    cout << checkInclusion(s1, s2);
+}

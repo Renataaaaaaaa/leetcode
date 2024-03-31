@@ -2,13 +2,15 @@
 #include <iostream>
 using namespace std;
 
+//注意如何跳过重复元素
 vector<vector<int>> threeSum(vector<int>& nums) {
     std::sort(nums.begin(), nums.end());
     vector<vector<int>> res;
+    int target = 0, p = 0, q = 0;
     for (int i = 0; i < nums.size(); i++){
-        int target = 0 - nums[i];
-        int p = i + 1;
-        int q = nums.size() - 1;
+        target = 0 - nums[i];
+        p = i + 1;
+        q = nums.size() - 1;
         while(q > p){
             if ((nums[p] + nums[q]) > target){
                 q--;

@@ -25,13 +25,10 @@ string minWindow(string s, string t) {
     int left = 0;
     int i = 0, j = 0, length = INT32_MAX;
     for (int right = 0; right < s.size(); right++){
-        cout << right << endl;
         if (t_nums.find(s[right]) != t_nums.end()){
             t_nums[s[right]]--;
         }
         while (allZero(t_nums) && left <= right){
-        cout << left << endl;
-
             if (t_nums.find(s[left]) != t_nums.end()) {
                 t_nums[s[left]]++;
             }
@@ -41,7 +38,6 @@ string minWindow(string s, string t) {
                 length = right - left + 1;
             }
             left++;
-
         }
     }
     if (length != INT32_MAX){

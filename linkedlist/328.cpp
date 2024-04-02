@@ -3,7 +3,7 @@
 #include "utils.cpp"
 using namespace std;
 
-
+// fast的后一个插到low的后边
 ListNode* oddEvenList(ListNode* head) {
     if (head == nullptr || head->next == nullptr || head->next->next == nullptr){
         return head;
@@ -17,14 +17,12 @@ ListNode* oddEvenList(ListNode* head) {
         fast = fast->next;
         low = low->next;
 
-        cout << "fast val" << fast->val << endl;
 
         after_fast = fast->next;
 
         fast->next = fast->next->next;
         after_fast->next = low->next;
         low->next = after_fast;
-        cout << "after on iteration" << endl;
         printLinkedList(head);
     }
     return head;

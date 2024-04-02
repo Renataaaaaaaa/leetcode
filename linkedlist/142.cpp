@@ -10,6 +10,13 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+// 
+// 环的入口节点的推理过程
+// 第一次相遇：n = k; 2n = k + 环*整数倍  
+// k = L(入口) + x(过了入口的距离) = nC  
+// 第二次相遇  
+// 从head开始走L步到入口  
+// 另一个指针 L步 = nC - x 也到入口  
 
 ListNode* hasCycle(ListNode *head) {
     if (head == nullptr ){

@@ -3,24 +3,31 @@
 #include "utils.cpp"
 using namespace std;
 
+pair<ListNode*, ListNode*> reverseList(ListNode* head, int range){
+
+
+    ListNode* prev = nullptr;
+    ListNode* next_tmp = nullptr;
+
+    for (int i = 0; i < range; i++){
+        next_tmp = head->next;
+        head->next = prev;
+        prev = head;
+        head = next_tmp;
+    }
+    return make_pair(prev, head);
+}
 ListNode* reverseBetween(ListNode* head, int left, int right) {
     ListNode dummy(0);
     dummy.next = head;
-    ListNode* prev = &dummy;
+    ListNode* move = &dummy;
     for (int i = 0; i < left - 1; i++){
-        prev = prev->next;
+        move = move->next;
     }
-    cout << prev->val << endl;
-    ListNode* cur = prev->next;
-    ListNode* next = nullptr;
-    for (int j = 0; j < (right - left); j++){
-        next = cur->next;
-        cur->next = next->next;
-        next->next = prev->next;
-        prev->next = next;
-    }
+    pair<ListNode*, ListNode*> reverseRes = reverseList(move->next, right - left + 1);
+    move->next->next = reverseRes.second;
+    move->next = reverseRes.first;
     return dummy.next;
-
 }
 
 int main(){

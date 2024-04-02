@@ -16,18 +16,17 @@ Node* flattenHelp(Node* head) {
         if (head->child != nullptr){
             
             Node* next_old = (head->next == nullptr) ? nullptr : head->next; //maybe nullptr
+
             head->next = head->child;
             head->child->prev = head;
+
             Node* next_new = flattenHelp(head->child);
             head->child = nullptr;
-            if (next_old == nullptr){
-                next_new->next = next_old;
-                head = next_new;
-            }else{
-                next_new->next = next_old;
+            next_new->next = next_old;
+            if (next_old != nullptr){
                 next_old->prev = next_new;
-                head = next_new;
-            } 
+            }
+            head = next_new;
 
         }else{
             head = head->next;
@@ -40,4 +39,8 @@ Node* flatten(Node* head){
     Node* res = head;
     flattenHelp(head);
     return res;
+}
+
+int main(){
+    flatten()
 }

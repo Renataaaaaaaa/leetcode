@@ -14,20 +14,17 @@ ListNode* swapPairs(ListNode* head) {
 
     ListNode* node1 = nullptr;
     ListNode* node2 = nullptr;
-    ListNode* node3 = nullptr;
-    cout << dummy.val << endl;
+    // cout << dummy.val << endl;
     while(move != nullptr && move ->next != nullptr && move ->next->next != nullptr){
         node1 = move->next;
         node2 = node1->next;
-        node3 = node2->next;
-        move->next = node2;
+
+        node1->next = node2->next;
         node2->next = node1;
-        node1->next = node3;
+        move->next = node2;
         move = node1;
     }
-
     return dummy.next;
-
 }
 
 int main(){

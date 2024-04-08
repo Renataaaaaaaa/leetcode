@@ -3,12 +3,14 @@
 #include <unordered_map>
 using namespace std;
 #include <cstdlib>
+//hashmap + double linkedlist
 struct Node{
     int key;
     int value;
     Node* prev = nullptr; //ATTENTION: !!!
     Node* next = nullptr;
     // Node(int value): value(value){};
+    Node(): key(0), value(0), prev(nullptr), next(nullptr) {}
     Node(int key, int value): key(key), value(value){
     };
 };
@@ -19,41 +21,39 @@ public:
     unordered_map<int, Node*> map;
     int capacity = 0;
     int nums = 0;
-    void updateNode(Node* node){
-        if (head == tail){
-            return;
-        }
-        if (node == tail){
-            return;
-        }
+    LRUCache(int capacity): capacity(capacity) {
+        head = new Node();
+        tail = new Node();
+        head->next = tail;
+        tail->next = head;
+    }
+    void moveToHead(Node* node){
         Node* next_tmp = node->next;
         Node* prev_tmp = node->prev;
-        if (prev_tmp != nullptr){
-            prev_tmp->next = next_tmp;
-        }else{
-            head = next_tmp;
-        }
-        if (next_tmp != nullptr){
-            node->next->prev = prev_tmp;
-        }
-        node->prev = tail;
-        node->next = nullptr;
-        tail->next = node;
-        tail = node;
+        prev_tmp->next = next_tmp;
+        node->next->prev = prev_tmp;
+        addToHead(node);
     }
-    LRUCache(int capacity): capacity(capacity) {
-        head = nullptr;
-        tail = nullptr;
+    void addToHead(Node* node){
+        Node* head_next_o = head->next;
+        head->next = node;
+        node->next = head_next_o;
+        head_next_o->prev = node;
+        node->prev = head;
     }
-    
+    void removeTail(){
+        Node* tail_prev_o = tail->prev->prev;
+        tail->prev = tail_prev_o;
+        tail_prev_o->next = tail;
+        //TODO
+    }
     int get(int key) {
         if (map.find(key) != map.end()){
             Node* node = map.at(key);
-            
             int res = node->value;
-            updateNode(node);
-            map[key] = tail;
-            return res;
+            moveToHead(node);
+            // map[key] = tail; //TODO
+            return res; 
 
         }else{
             return -1;
@@ -62,36 +62,30 @@ public:
     
     void put(int key, int value) { //ATTENTION: how to delete and not affect other elements
         if (map.find(key) == map.end()){
-            // add a new one
             nums++;
+            Node* node = new Node(key, value);
+            addToHead(node);
+            map[key] = node;
             if (nums > capacity){
-                map.erase(head->key);
-                if (head == tail){
-                    head = nullptr;
-                    tail = nullptr;
-                }else{
-                    head->next->prev = nullptr;
-                    head = head->next;
-                }
-
-                
+                map.erase(tail->prev->key);
+                removeTail();
             }
-            Node* new_node = new Node(key, value);
-            map[key] = new_node;
-            if (head == nullptr && tail == nullptr){              
-                head = new_node;
-                tail = new_node;
-            }else{
-                tail->next = new_node;
-                new_node->prev = tail;
-                tail = new_node;
-            }
-
-        }else{
+        }else{ //update
             Node* node = map.at(key);
             node->value = value;
-            updateNode(node);
-            map[key] = tail;
+            moveToHead(node);
         }
     }
 };
+int main(){
+    LRUCache* obj = new LRUCache(2);
+    obj->put(1,1);
+    obj->put(2,2);
+    cout << obj->get(1) << endl;
+    obj->put(3,3);
+    cout << obj->get(2) << endl;
+    obj->put(4,4);
+    cout << obj->get(1) << endl;
+    cout << obj->get(3) << endl;
+    cout << obj->get(4) << endl;
+}

@@ -15,7 +15,7 @@ struct TreeNode {
 
 class CBTInserter {
 public:
-    TreeNode* tree_root = nullptr;
+    TreeNode* tree_root = nullptr; //root 
     queue<TreeNode* > nodes;
     CBTInserter(TreeNode* root) {
         tree_root = root;
@@ -23,12 +23,7 @@ public:
     }
     
     int insert(int val) {
-        // if (tree_root == nullptr){
 
-        //     return 
-        // }
-        // queue<TreeNode* > nodes;
-        // nodes.push(tree_root);
         while(nodes.front()->left != nullptr && nodes.front() ->right != nullptr){
             nodes.push(nodes.front()->left);
             nodes.push( nodes.front()->right);

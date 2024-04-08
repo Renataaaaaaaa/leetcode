@@ -13,5 +13,8 @@ map.find(sums[i] - k) != map.end()
 #include <cctype>
 isalnum 数字或字母
 
+
+string:
+分割string
 ### words
 anagram 变位词

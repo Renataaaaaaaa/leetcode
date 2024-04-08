@@ -30,30 +30,25 @@ int findMinDifference(vector<string>& timePoints) {
         myMap[index] = true;
     }
 
-    int last_true = 0;
-    for (int j = timeSlot - 1; j >= 0 ; j--){
-        if (myMap[j]){
-            last_true = j;
-            break;
-        }
-    }
-    cout << last_true << endl;
     int prev_i = -1;
     int res = INT32_MAX;
-    for (int i = 0; i <= last_true; i++){
+    int first_time = 0;
+    for (int i = 0; i < timeSlot; i++){
         if (myMap[i]){
-            int diff = 0;
             if (prev_i == -1){
-                diff = i + 1440 - last_true;
-
+                first_time = i;
+                prev_i = i;
             }else{
-                diff = i - prev_i;
+                res = min(i - prev_i, res);
+                prev_i = i;
             }
-            if (i - prev_i < res){
-                res = diff;
-            }
-            prev_i = i;
         }
     }
+    res = min(res, first_time + 1440 - prev_i);
     return res;
+}
+
+int main(){
+    vector<string> data = {"00:00","23:59","00:00"};
+    cout << findMinDifference(data) << endl;
 }

@@ -2,40 +2,48 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
+#include "utils.cpp"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 
 int findBottomLeftValue(TreeNode* root) {
-    queue<TreeNode* > queue1;
-    queue<TreeNode* > queue2;
-    queue1.push(root);
-    int res = root->val;
-    while(queue1.size() != 0){
-        if (queue1.front()->left != nullptr){
-            queue2.push(queue1.front()->left);
-        }
-        if (queue1.front()->right != nullptr){
-            queue2.push(queue1.front()->right);
-        }
-        queue1.pop();
-        if (queue1.size() == 0){
-            if (queue2.size() == 0){
-                break;
-            }else{
-                queue1 = queue2;
-                queue2 = queue<TreeNode* >();
-                res = queue1.front()->val;
+    int res = 0;
+    if (root == nullptr){
+        return res;
+    }
+    queue<TreeNode* > nodes;
+    nodes.push(root);
+    res = root->val;
+    while(nodes.size() != 0){
+        int size = nodes.size();
+        int cur_res = 0;
+        bool first_one = true;
+        for(int i = 0; i < size; i++){
+            TreeNode* current = nodes.front();
+            if (nodes.front()->left != nullptr){
+                nodes.push(nodes.front()->left);
+                if (first_one){
+                    cur_res = nodes.front()->left->val;
+                    first_one = false;
+                }
             }
-
+            if (nodes.front()->right != nullptr){
+                nodes.push(nodes.front()->right);
+                if (first_one){
+                    cur_res = nodes.front()->right->val;
+                    first_one = false;
+                }
+            }
+            nodes.pop();
         }
+        if (nodes.size() != 0){
+            res = cur_res;
+        }
+        
     }
     return res;
+}
+int main(){
+    vector<int> data = {1,2,3,4,-100,5,6,-100,-100,7};
+    cout << findBottomLeftValue(buildTree(data)) << endl;
 }

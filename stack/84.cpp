@@ -21,7 +21,7 @@ int largestRectangleArea(vector<int>& heights) {
         }else{
             while(poles.size()> 0 && heights[i] < heights[poles.top()]){
                 int height = heights[poles.top()];
-                poles.pop();
+                poles.pop(); //ATTENTION
                 int width = (i - 1) - (poles.size() != 0 ? (poles.top() + 1) : 0) + 1; //
                 int area = height * width;
                 largestArea = max(area, largestArea);
@@ -43,4 +43,9 @@ int largestRectangleArea(vector<int>& heights) {
         largestArea = max(area, largestArea);
     }
     return largestArea;
+}
+
+int main(){
+    vector<int> data = {2,1,5,6,2,3};
+    cout << largestRectangleArea(data) << endl;
 }

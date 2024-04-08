@@ -42,5 +42,5 @@ Node* flatten(Node* head){
 }
 
 int main(){
-    flatten()
+    flatten();
 }

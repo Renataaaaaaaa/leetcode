@@ -27,10 +27,6 @@ public:
             nodes.push(curr);
             curr = curr->left;
         }
-        // curr = nodes.top();
-        // cout << curr->val;
-        // nodes.pop();
-        // curr = curr->right;
     }
     
     int next() {

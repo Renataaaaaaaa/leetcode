@@ -4,56 +4,37 @@
 #include <queue>
 #include <stack>
 #include <sstream>
+#include "utils.cpp"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+
+void dfs(TreeNode* root, int& res, int& cur_res){
+    cur_res = cur_res + root->val;
+    if (root->left == nullptr && root->right == nullptr){
+        res += cur_res;
+        cout << cur_res << endl;
+        return;
+    }
+    
+
+    cur_res *= 10;
+    dfs(root->left, res, cur_res);
+    cur_res /= 10;
+
+    cur_res *= 10;
+    dfs(root->right, res, cur_res);
+    cur_res /= 10;
+
+}
 
 int sumNumbers(TreeNode* root) {
-    queue<TreeNode* > queue1;
-    queue<TreeNode* > queue2;
-    queue1.push(root);
-    // vector<int> num;
-    // num.push_back(root->val);
-    unordered_map<TreeNode*, int> map;
-    cout << "25" << endl;
-    map[root] = root->val;
-    while(true){
-        // TreeNode* 
-        while(queue1.size() != 0){
-            TreeNode* node1 = queue1.front();
-            if ((node1->left != nullptr) || (node1->right != nullptr)){
-                if (node1->left != nullptr){
-                    map[node1->left] = map[node1]* 10 + node1->left->val;
-                    queue2.push(node1->left);
-                }
-                if (node1->right != nullptr){
-                    map[node1->right] = map[node1]* 10 + node1->right->val;
-                    queue2.push(node1->right);
-                }
-                map.erase(node1);
+    int res = 0;
+    int cur_res = 0;
+    dfs(root, res, cur_res);
+    return res;
+}
 
-            }
-            queue1.pop();
-        }
-        if (queue2.size() == 0){
-            break;
-        }
-        for (const auto& pair : map){
-            cout << pair.first << " " << pair.second << endl;
-        }
-        queue1 = queue2;
-        queue2 = queue<TreeNode* >();
-    }
-    int sum = 0;
-    for (const auto& pair : map){
-        sum += pair.second;
-    }
-    return sum;
+int main(){
+    vector<int> data = {4,9,0,5,1};
+    cout << sumNumbers(buildTree(data)) << endl;
 }

@@ -3,47 +3,28 @@
 #include <unordered_map>
 #include <queue>
 #include <stack>
+#include "utils.cpp"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-TreeNode* pruneTree(TreeNode* root) {
-    stack<TreeNode* > nodes;
-    TreeNode* cur = root;
-    TreeNode* prev = nullptr;
-    while (cur != nullptr || nodes.size() != 0){
-        while (cur != nullptr){ //bottom
-            // cout << cur->val << endl;
-            nodes.push(cur); //middle
-            cur = cur->left;
-        }
-        cur = nodes.top(); //middle
-        if (cur->right != nullptr && cur->right != prev){
-            cur = cur->right;
-        }else{
-            TreeNode* tmp = nodes.top();
-            nodes.pop();
-            if (tmp->val == 0 && tmp->left == nullptr && tmp->right == nullptr){
-                if (tmp == root){
-                    return nullptr;
-                }else if (tmp == nodes.top()->left){
-                    nodes.top()->left = nullptr;
-                }else{
-                    nodes.top()->right = nullptr;
-                }
-            }
-            prev = cur;
-            cur = nullptr; //have cout middle
-        }
+//后序遍历
+TreeNode* dfs(TreeNode* root){
+    if (root == nullptr){
+        return nullptr;
     }
-    cout << (root == nullptr) << endl;
+    root->left = dfs(root->left);
+    root->right = dfs(root->right);
+    if (root->left == nullptr && root->right == nullptr && root->val == 0){
+        return nullptr;
+    }
     return root;
 
+}
+TreeNode* pruneTree(TreeNode* root){
+    dfs(root);
+    return root;
+}
+
+int main(){
+    vector<int> data = {0,-100,0,0,0};
+    cout << pruneTree(buildTree(data))->right->left->val << endl;
 }

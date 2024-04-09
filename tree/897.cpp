@@ -3,45 +3,35 @@
 #include <unordered_map>
 #include <queue>
 #include <stack>
+#include "utils.cpp"
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+//中序
 
-
-TreeNode* increasingBSTHelp(TreeNode* node, TreeNode* new_root){
+void increasingBSTHelp(TreeNode* node, vector<int>& res){
     if (node == nullptr){
-        return nullptr;
+        return;
     }
-    cout << "node " << node->val << endl;
-    TreeNode* new_root_return = nullptr;
-    increasingBSTHelp(node->left, new_root);
-    if (new_root == nullptr){
-        new_root = new TreeNode(node->val);
-        new_root_return = new_root;
-        cout << new_root_return->val << endl;
-    }else{
-        new_root->right = new TreeNode(node->val);
-        new_root = new_root->right;
-        // root = new_root->right;
-    }
-    // cout << node->val << endl;
-    increasingBSTHelp(node->right, new_root);
-    cout << new_root_return->val << endl;
-    return new_root_return;
-    
+    increasingBSTHelp(node->left, res);
+    res.push_back(node->val);
+    increasingBSTHelp(node->right, res);
 }
+    
 
 TreeNode* increasingBST(TreeNode* root) {
-    TreeNode* new_root = nullptr;
-    new_root = increasingBSTHelp(root, new_root);
-    cout << "39" << endl;
-    // cout << new_root_return->right->right->val << endl;
-    return new_root;
+    vector<int> res;
+    increasingBSTHelp(root, res);
+    TreeNode dummy(0);
+    TreeNode* move = &dummy;
+    for (auto item: res){
+        TreeNode* tmp = new TreeNode(item);
+        move->right = tmp;
+        move = move->right;
+    }
+    return dummy.right;
+}
+
+int main(){
+    vector<int> data = {5,1,7};
+    cout << increasingBST(buildTree(data))->right->val << endl;
 }

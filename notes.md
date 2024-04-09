@@ -14,7 +14,10 @@ map.find(sums[i] - k) != map.end()
 isalnum 数字或字母
 
 
+
 string:
 分割string
+int转string std::to_string(a)
+string转int std::stoi(a)
 ### words
 anagram 变位词

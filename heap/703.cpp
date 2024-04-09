@@ -22,9 +22,6 @@ public:
             if (val > maxHeap.top()){
                 maxHeap.pop();
                 maxHeap.push(val);
-                // return maxHeap.top();
-            }else{
-                // return maxHeap.top();
             }
         }
         return maxHeap.top();

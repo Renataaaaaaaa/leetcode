@@ -42,23 +42,32 @@ public:
             insert(item);
         }
     }
-    bool searchHelp(string word, int index, TreeNodee* root_cur, int Error) {
+    bool searchHelp(string word, int index, TreeNodee* root_cur, bool Error) {
         TreeNodee* root_move = root_cur;
-        if (root_cur == nullptr){
-            return false;
-        }
-        if (root_move->isEnd && Error == 1 && index == word.size()){
+
+        if (root_move->isEnd && index == word.size() && Error){
+            cout << "49 find it" << endl;
             return true;
         }
 
-        if (index < word.size() && Error <= 1){
+        //遍历所有子树，针对是否等于index的处理error
+        cout << "index " << index << endl;
+        for(int i = 0; i < 26; i++){
             bool find = false;
-            for (int j = 0; j < 26; j++){
-                int next =  j == word[index] - 'a' ? Error : Error + 1;
-                    // 0 1
-                find = find || searchHelp(word, index + 1, root_move->children[j], next);
+            cout << " i " << i << endl;
+            if (root_move->children[i]){
+                if (i == word[index] - 'a'){
+                    cout << "same " << Error<< endl;
+                    find = searchHelp(word, index + 1, root_move->children[i], Error);
+                }else if (!Error){
+                    cout << "doesn't same" << endl;
+                    find = searchHelp(word, index + 1, root_move->children[i], true);
+                }
             }
-            return find;
+            if (find){
+                cout << "68" << endl;
+                return true;
+            }
         }
         return false;
     }
@@ -66,3 +75,11 @@ public:
         return searchHelp(searchWord, 0, root, false);
     }
 };
+
+int main(){
+    MagicDictionary magic;
+    
+    magic.buildDict({"hello", "leetcode"});
+    cout << magic.search("leettode") << endl;
+    // cout << magic.search("hhllo") << endl;
+}

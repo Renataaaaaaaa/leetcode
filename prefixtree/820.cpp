@@ -21,7 +21,6 @@ class Trie {
 public:
     TreeNodee* root;
     int char_num = 0;
-    int path_num = 0;
     Trie() {
         root = new TreeNodee();
     }
@@ -37,32 +36,28 @@ public:
         root_move->isEnd = true;
     }
 
-    void dfs(TreeNodee* root_cur, int res){
+    void dfs(TreeNodee* root_cur, int res){ //ATTENTION: 用dfs获取图中所有点的个数
 
         res = res + 1;
-        int path_num = 0;
-        for (int i = 0; i<26; i++){
+        bool leaf = true;
+        for (int i = 0; i < 26; i++){
             if (root_cur->children[i] != nullptr){
                 dfs(root_cur->children[i], res);
-                path_num++;
+                leaf = false;
             }
         }
-        if (path_num == 0){
-            cout << "leaf res " << res << endl;
+        if (leaf){
             char_num += res;
         }
 
     }
 
 };
-class Solution {
-public:
+
 int minimumLengthEncoding(vector<string>& words) {
     Trie trie;
     int res = 0;
-    reverse(words[0].begin(), words[0].end());
-    trie.insert(words[0]);
-    for (vector<string>::size_type i = 1; i<words.size(); i++){
+    for (vector<string>::size_type i = 0; i<words.size(); i++){
         reverse(words[i].begin(), words[i].end());
         trie.insert(words[i]);
     }
@@ -70,4 +65,8 @@ int minimumLengthEncoding(vector<string>& words) {
     cout << "char num " << trie.char_num << endl;
     return trie.char_num;
 }
-};
+
+int main(){
+    vector<string> words = {"time", "me", "bell"};
+    cout << minimumLengthEncoding(words) << endl;
+}

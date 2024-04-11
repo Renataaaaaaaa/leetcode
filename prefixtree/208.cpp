@@ -23,7 +23,6 @@ public:
     }
     
     void insert(string word) {
-        cout << "insert" << endl;
         TreeNodee* root_move = root;
         for(auto c: word){
             bool find = false;
@@ -32,34 +31,25 @@ public:
             }
             root_move = root_move->children[c - 'a'];
         }
-        cout << " 28" << endl;
-        cout << (root_move == nullptr) << endl;
         root_move->isEnd = true;
-        cout << " 30" << endl;
     }
     
     bool search(string word) {
-        cout << "search" << endl;
         TreeNodee* root_move = root;
         for(auto c: word){
-            if (root_move == nullptr || root_move->children[c - 'a'] == nullptr){
+            if (root_move->children[c - 'a'] == nullptr){
                 return false;
             }else{
                 root_move = root_move->children[c - 'a'];
             }
         }
-        if (root_move->isEnd){
-            return true;
-        }else{
-            return false;
-        }
+        return root_move->isEnd;
     }
     
     bool startsWith(string prefix) {
-        cout << "startsWith" << endl;
         TreeNodee* root_move = root;
         for(auto c: prefix){
-            if (root_move == nullptr || root_move->children[c - 'a'] == nullptr){
+            if (root_move->children[c - 'a'] == nullptr){
                 return false;
             }else{
                 root_move = root_move->children[c - 'a'];
@@ -69,10 +59,12 @@ public:
     }
 };
 
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie* obj = new Trie();
- * obj->insert(word);
- * bool param_2 = obj->search(word);
- * bool param_3 = obj->startsWith(prefix);
- */
+int main(){
+    Trie trie;
+    trie.insert("apple");
+    cout << trie.search("apple") << endl; 
+    cout << trie.search("app") << endl;
+    trie.insert("app");
+    cout << trie.search("app") << endl;
+
+}

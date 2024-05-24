@@ -1,13 +1,7 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+#include "utils.cpp"
+
+//分治
+
 class Solution {
 public:
 ListNode* getMid(ListNode* head){
@@ -18,7 +12,7 @@ ListNode* getMid(ListNode* head){
         fast = fast->next->next;
     }
     ListNode* res = low->next;
-    low->next = nullptr;
+    low->next = nullptr; //ATTENTION
     return res;
 }
 

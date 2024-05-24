@@ -35,7 +35,7 @@ int largestRectangleArea(vector<int>& heights) {
         poles.pop();
         int width = 0;
         if (poles.size() != 0){
-            width = (heights.size() - 1) - (poles.top() + 1) + 1;
+            width = (heights.size() - 1) - (poles.top() + 1) + 1; //ATTENTION
         }else{
             width = heights.size();
         }

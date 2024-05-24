@@ -42,17 +42,17 @@ public:
     TreeNodee* search(string prefix) {
         TreeNodee* root_move = root;
         for(auto c: prefix){
-            if (root_move == nullptr || root_move->children[c - 'a'] == nullptr){
-                return nullptr;
-            }else{
+            if (root_move->children[c - 'a'] != nullptr){
                 root_move = root_move->children[c - 'a'];
+            }else{
+                return nullptr;
             }
         }
         return root_move;
     }
 
     int dfs(TreeNodee* root_cur){
-        int res;
+        int res = 0;
         if (root_cur->isEnd){
             res = root_cur->value;
         }else{
@@ -66,7 +66,6 @@ public:
         return res;
     }
     int sum(string prefix) {
-        // TreeNode* root_move = root;
         TreeNodee* root_begin = search(prefix);
         if (root_begin == nullptr){
             return 0;
@@ -81,3 +80,9 @@ public:
  * obj->insert(key,val);
  * int param_2 = obj->sum(prefix);
  */
+
+int main(){
+    MapSum mapsum;
+    mapsum.insert("apple", 3);
+    cout << mapsum.sum("app") << endl;
+}

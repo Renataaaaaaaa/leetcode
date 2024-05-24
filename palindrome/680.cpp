@@ -21,7 +21,6 @@ bool isPalindrome(string s, int p, int q) {
             p++;
             q--;
         }
-
     }
     return true;
 }

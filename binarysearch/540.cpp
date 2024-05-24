@@ -6,34 +6,29 @@ int singleNonDuplicate(vector<int>& nums) {
     if (nums.size() == 1){
         return nums[0];
     }
-    int lo = 1;
-    int hi = nums.size() - 2;
+    int lo = 0;
+    int hi = nums.size() - 1;
     int mid = 0;
-    int res = 0;
-    while(hi >= lo){ //keep singular
+    while(hi > lo){ //keep singular
         mid = (lo + hi ) / 2;
-        cout << "mid " << mid << endl;
-        if ((nums[mid] != nums[mid + 1]) &&  (nums[mid] != nums[mid - 1])){
-            return nums[mid];
-        }
-        if ( mid % 2 == 0){
-            if (nums[mid] == nums[mid + 1]){
-                cout << "19" << endl;
-                lo = mid;
+        if ( mid % 2 == 0){ 
+            if (nums[mid] == nums[mid + 1]){ //正常情况下，前边没有被插入的情况下，不等于的时候mid有可能是答案，所以要hi = mid
+                lo = mid + 1;
             }else{
                 hi = mid;
             }
-        }else{
-            if (nums[mid] == nums[mid + 1]){
-                hi = mid - 1;
-                res = hi;
-            }else{
-                cout << "31" << endl;
+        }else{ 
+            if (nums[mid] == nums[mid - 1]){ //正常情况下，前边没有被插入的情况下
                 lo = mid + 1;
-                res = lo;
+            }else{
+                hi = mid;
             }
         }
-
     }
-    return nums[res];
+    return nums[lo];
+}
+
+int main(){
+    vector<int> data = {1,1,2,3,3,4,4,8,8};
+    cout << singleNonDuplicate(data) << endl;
 }

@@ -1,5 +1,4 @@
 ### palindrome
-647 how many palindromic substrings in one string
 
 ### C++ 基本操作
 vector:  
@@ -11,13 +10,12 @@ map:
 map.find(sums[i] - k) != map.end()  
 
 #include <cctype>
-isalnum 数字或字母
-
-
+isalnum() 数字或字母
 
 string:
 分割string
 int转string std::to_string(a)
 string转int std::stoi(a)
+
 ### words
 anagram 变位词

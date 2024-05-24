@@ -18,14 +18,14 @@ bool isPalin(string s, int i, int j){
     return true;
 }
 void partitionHelp(string s, int i_index, int j_index, vector<vector<string>>& res, vector<string>& cur_res){
-    if (j_index == s.size()) {
+    if (i_index == s.size()){
         res.push_back(cur_res);
     }
     for(int j = j_index; j < s.size(); j++){
         if (isPalin(s, i_index, j)){
             cur_res.push_back(s.substr(i_index, j - i_index + 1));
-            partitionHelp(s, j + 1, j + 1, res, cur_res);
-            cur_res.erase(cur_res.end()-1);
+            partitionHelp(s, j+1, j+1, res, cur_res);
+            cur_res.pop_back();
         }
     }
 }

@@ -39,8 +39,7 @@ class prefixTree{
             TreeNodee* root_cur = root;
             for (int i = 0; i < 32; i++){
                 int bit = num >> (31 - i) & 1; // 0 or 1
-                // cout << "bit" << endl;
-                if (root_cur->children[!bit] != nullptr){
+                if (root_cur->children[!bit] != nullptr){ //ATTENTION
                     root_cur = root_cur->children[!bit];
                 }else{
                     root_cur = root_cur->children[bit];

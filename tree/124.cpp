@@ -23,7 +23,7 @@ int maxPathSumHelp(TreeNode* root, int & maxSum){
     int right_sum = maxPathSumHelp(root->right, maxSum);
     int sum = root->val + left_sum + right_sum;
     maxSum = max(maxSum, sum);
-    if (sum > 0){
+    if (sum > 0){ //ATTENTION: ??? 不应该是半支吗
         if (left_sum > right_sum){
             return root->val + left_sum;
         }else{

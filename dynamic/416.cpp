@@ -6,6 +6,8 @@
 #include <numeric>
 using namespace std;
 
+//f(i, j) 从0...i放满j，j等于sum/2
+//f(i, j) = f(i-1, j-nums[i]) || f(i-1,j)
 bool canPartition(vector<int>& nums) {
     int sum = accumulate(nums.begin(), nums.end(), 0);
     if (sum % 2 != 0){

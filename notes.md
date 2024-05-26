@@ -17,5 +17,7 @@ string:
 int转string std::to_string(a)
 string转int std::stoi(a)
 
+heap:
+最小堆，最大堆用优先队列怎么写
 ### words
 anagram 变位词

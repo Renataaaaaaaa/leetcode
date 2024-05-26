@@ -15,7 +15,7 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-int maxPathSumHelp(TreeNode* root, int & maxSum){
+int maxPathSumHelp(TreeNode* root, int & maxSum){ //what is maxSum
     if (root == nullptr){
         return 0;
     }

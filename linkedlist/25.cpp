@@ -46,11 +46,11 @@ ListNode* reverseKGroup(ListNode* head, int k) {
         pair<ListNode*, ListNode*> pairRes = reverseList(move->next, k);
         // cout << pairRes.first->val << " " << pairRes.second->val << endl;
         
-        move->next->next = pairRes.second;
+        move->next->next = pairRes.second; //ATTENTION
         move->next = pairRes.first;
         
         move = tmp;
-        printLinkedList(move);
+        // printLinkedList(move);
         cout << "38" << endl;
     }
     return dummy.next;

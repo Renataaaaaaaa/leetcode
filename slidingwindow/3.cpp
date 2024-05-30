@@ -12,19 +12,20 @@ int lengthOfLongestSubstring(string s) {
     }
     int left = 0;
     int right = 0;
-    unordered_set<int> cur;
-    int res = 0, res_max = 1;
+    unordered_set<char> cur;
+    // cur.insert(s[0]);
+    int res = 0;
     while(right < s.size()){
-        while(cur.find(s[right]) != cur.end()){
+        cur.insert(s[right]);
+        while(cur.find(s[left]) != cur.end()){
             cur.erase(s[left]);
             left++;
         }
-        res = right - left + 1;
-        res_max = max(res, res_max);
-        cur.insert(s[right]);
+        cout << left << " " << right << endl;
+        res = max(res, right - left);
         right++;
     }
-    return max(res_max, right - left);
+    return res;
 }
 
 int main(){

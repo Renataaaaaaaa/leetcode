@@ -7,6 +7,7 @@
 #include <stack>
 using namespace std;
 
+//判断当前栈顶的元素和c的比较，如果c更小，则把c作为开始的字符字典序更小，但是要判断该字符在后边会不会再出现
 string removeDuplicateLetters(string s) {
     stack<char> stk;
     int counts [256] = {0};

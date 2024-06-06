@@ -1,23 +1,23 @@
 #include "utils.cpp"
 #include <stack>
 
-int kthSmallest(TreeNode* root, int k) {
-    stack<TreeNode *> stack;
-    
-    while (root != nullptr || stack.size() > 0) {
-        while (root != nullptr) {
-            stack.push(root);
-            root = root->left;
-        }
-
-        root = stack.top();
-        k--;
-        if (k == 0){
-            return root->val;
-        }
-        stack.pop();
-        root = root->right;
+int res = 0;
+void help(TreeNode* root, int k, int& rank){
+    if (root == nullptr){
+        return;
     }
+    help(root->left, k ,rank);
+    rank++;
+    if (rank == k){
+        res = root->val;
+        return;
+    }
+    help(root->right, k, rank);
+}
+int kthSmallest(TreeNode* root, int k) {
+    int rank = 0;
+    help(root, k, rank);
+    return res;
 }
 
 int main(){

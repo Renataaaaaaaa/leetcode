@@ -3,8 +3,7 @@
 #include <queue>
 using namespace std;
 
-class Solution {
-public:
+
 vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
     vector<vector<int>> graph(numCourses, vector<int>());
     vector<int> inDegree(numCourses, 0);
@@ -40,4 +39,9 @@ vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
     }
     return res;
 }
-};
+int main(){
+    vector<vector<int>> prerequisites = {{1,0},{2,0},{3,1},{3,2}};
+    for (auto item: findOrder(4, prerequisites)){
+        cout << item << endl;
+    }
+}

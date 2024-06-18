@@ -44,10 +44,11 @@ int bisect_right(vector<int> data, int target){
     }
     return hi;
 }
+//存在的时候是左边界和右边界，不存在的时候lo比target大，hi比target小
 
 int main(){
-    vector<int> data = {1,6,8};
-    cout << bisect_right(data, 5) << endl;
+    vector<int> data = {1,5,5,5,6,8};
+    cout << bisect_right(data, 7) << endl;
     // cout << bisect_left(data, 3) << endl;
     // cout << bisect_left(data, 2) << endl;
     // cout << bisect_left(data, 0) << endl;

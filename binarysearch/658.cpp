@@ -17,16 +17,14 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     int left = lo - 1; //ATTENTION
     int right = lo;
     for (int i = 0; i < k; i++){
-        if (left < 0 && (right <= (int(arr.size()) - 1))){ //ATTENTION:
+        if (left < 0 ){ //ATTENTION:
             right++;
-        }else if (left >= 0 && (right > (int(arr.size()) - 1))){
+        }else if (right > (int(arr.size()) - 1)){
             left--;
-        }else{
-            if (((x - arr[left] == arr[right] - x)) || ((x - arr[left] < arr[right] - x))){
-                left--;
-            }else{
-                right++;
-            }
+        }else if (x - arr[left] <= arr[right] - x){
+            left--;
+        }else {
+            right++;
         }
     }
     vector<int> res(arr.begin() + left + 1, arr.begin() + right);

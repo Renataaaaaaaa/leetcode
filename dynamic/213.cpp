@@ -5,19 +5,12 @@ using namespace std;
 
 int robRange(vector<int>& nums, int i, int j) { //往回看
 
-    if (i >= j){
-        return nums[i];
-    } else if (j == (i + 1)){
-        return max(nums[i], nums[j]);
-    }
-
-    vector<int> dp((j - i + 1), 0);
-    cout << dp.size() << endl;
-    dp[0] = nums[i];
-    dp[1] = max(nums[i], nums[i + 1]);
-    for(int k = i + 2; k <= j; k++){
-        cout << "k " << k << endl;
-        dp[k - i] = max(nums[k] + dp[k - i - 2], dp[k - i - 1]);
+    vector<int> dp((j - i + 3), 0);
+    // dp[0] = nums[i];
+    // dp[1] = max(nums[i], nums[i + 1]);
+    for(int k = 2; k < j - i + 3; k++){
+        // cout << "k " << k << endl;
+        dp[k] = max(nums[k - 2 + i] + dp[k - 2], dp[k - 1]);
     }
     return dp[dp.size() - 1];
 }
@@ -31,6 +24,6 @@ int rob(vector<int>& nums) { //往前看
 }
 
 int main(){
-    vector<int> data = {0};
+    vector<int> data = {1,2,3,1};
     cout << rob(data) << endl;
 }

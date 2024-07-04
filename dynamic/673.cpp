@@ -6,45 +6,36 @@
 using namespace std;
 
 int findNumberOfLIS(vector<int>& nums) {
-    if (nums.size() == 1){
-        return 1;
-    }
     vector<int> dp(nums.size(), 1);
-    vector<int> dp_n(nums.size(), 1);
-    int length = INT32_MIN;
+    vector<int> count(nums.size(), 1);
+    // dp[0] = 1;
+    // count[0] = 1;
+    int max_length = 1;
+    int res = 1;
     for (int i = 1; i < nums.size(); i++){
         for (int j = 0; j < i; j++){
             if (nums[j] < nums[i]){
+                if (dp[j] + 1 == dp[i]){ //another possiblity
+                    count[i] += count[j];
+                }else if (dp[j] + 1 > dp[i]){
+                    count[i] = count[j];
+                }
                 dp[i] = max(dp[j] + 1, dp[i]);
             }
         }
-        bool first = true;
-        for (int j = 0; j < i; j++){
-            if (nums[j] < nums[i] && dp[j] + 1 == dp[i]){
-                if (!first){
-                    dp_n[i] += dp_n[j];
-                }else{
-                    dp_n[i] += (dp_n[j] - 1);
-                }
-                first = false;
-            }
+        cout << "i " << dp[i] << endl;
+        if (dp[i] > max_length){
+            res = count[i];
+        }else if (dp[i] == max_length){
+            res += count[i];
         }
-        length = max(length, dp[i]);
-        cout << i << " " << dp_n[i] << endl;
-    }
-    int res = 0;
-    for (int i = 0 ; i < dp_n.size(); i++){
-        if (dp[i] == length){
-            res += dp_n[i];
-        }
+        max_length = max(max_length, dp[i]);
     }
     return res;
+
 }
 
 int main(){
-    // vector<int> nums = {1,3,5,4,7};
-    // vector<int> nums = {2,2,2,2,2};
-    // vector<int> nums = {1,2,4,3,5,4,7,2};
-    vector<int> nums = {1,1,1,2,2,2,3,3,3};
+    vector<int> nums = {1,2,4,3,5,4,7,2};
     cout << findNumberOfLIS(nums) << endl;
 }

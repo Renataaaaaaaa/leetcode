@@ -15,7 +15,6 @@ int lengthOfLIS(vector<int>& nums) {
                 dp[i] = max(dp[j] + 1, dp[i]);
             }
         }
-        cout << i << " " << dp[i] << endl;
     }
     return *max_element(dp.begin(), dp.end());
 }

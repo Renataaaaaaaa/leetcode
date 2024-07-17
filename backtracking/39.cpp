@@ -21,8 +21,7 @@ void combinationSumHelp(vector<int>& nums, int i, vector<int>& cur_res, int targ
 
     //keep
     cur_res.push_back(nums[i]);
-    combinationSumHelp(nums, i, cur_res, target, res); //
-    // cur_res = {};
+    combinationSumHelp(nums, i, cur_res, target, res);
     cur_res.pop_back();
 }
 vector<vector<int>> combinationSum(vector<int>& candidates, int target) {

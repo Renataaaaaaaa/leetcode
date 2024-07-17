@@ -17,7 +17,6 @@ double dfs(unordered_map<string, unordered_map<string, double>>& graph, string b
         if (visited.find(pair.first) != visited.end()){
             continue;
         }
-        //ATTENTION: 找到一个 不是回溯
         res = dfs(graph, pair.first, end, visited);
         if (res > 0){
             return pair.second * res;
@@ -28,21 +27,15 @@ double dfs(unordered_map<string, unordered_map<string, double>>& graph, string b
     return -1;
 }
 void buildGraph(vector<vector<string>>& equations, vector<double>& values,  unordered_map<string, unordered_map<string, double>>& graph){
-    
     for (int i = 0; i < equations.size(); i++){
         string start = equations[i][0];
         string end = equations[i][1];
         graph[start][end] = values[i];
         graph[end][start] = 1.0 / values[i];
-        // graph[start][start] = 1.0;
-        // graph[end][end] = 1.0;
     }
 }
 vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-    // vector<vector<string>> graph;
     unordered_map<string, unordered_map<string, double>> graph;
-    // unordered_set<string> visited;
-
     buildGraph(equations, values, graph);
     vector<double> res;
     for (auto query: queries){

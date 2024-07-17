@@ -9,7 +9,7 @@ void swap(vector<int>& nums, int i, int j){
     nums[i] = nums[j];
     nums[j] = tmp;
 }
-void permuteHelp(vector<int>& nums, int index, vector<int>& cur_res, vector< vector<int>>& res){
+void permuteHelp(vector<int>& nums, int index,  vector< vector<int>>& res){
     if (index == nums.size()){
         res.push_back(nums);
     }
@@ -20,15 +20,14 @@ void permuteHelp(vector<int>& nums, int index, vector<int>& cur_res, vector< vec
         }
         swaped.insert(nums[i]);
         swap(nums, i, index);
-        permuteHelp(nums, index + 1, cur_res, res);
+        permuteHelp(nums, index + 1, res);
         swap(nums, i, index);
     }
 }
 
 vector<vector<int>> permuteUnique(vector<int>& nums) {
     vector<vector<int>> res;
-    vector<int> cur_res;
     // sort(nums.begin(), nums.end());
-    permuteHelp(nums, 0, cur_res, res);
+    permuteHelp(nums, 0, res);
     return res;
 }

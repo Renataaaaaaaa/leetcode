@@ -1,39 +1,29 @@
 #include "utils.cpp"
 
+unordered_map<long long, int> prefix;
 
-unordered_map<long, long> map;
-int sum = 0;
-int target = 0;
-// int count = 0;
-void pathSumHelp(TreeNode* root, long last, int& count){
-    if (root == nullptr){
-        return;
-    }
-    if (map.find(root->val + last - target) != map.end()){
-        count = count + map[(root->val + last - target)];
-    }
-    if (map.find(root->val + last) != map.end()){
-        map[root->val + last] += 1;
-    }else{
-        map[root->val + last] = 1;
+int dfs(TreeNode *root, long long curr, int targetSum) {
+    if (!root) {
+        return 0;
     }
 
-    pathSumHelp(root->left, root->val + last, count);
-    pathSumHelp(root->right, root->val + last, count);
-
-    if (map[root->val + last] > 1){
-        map[root->val + last] -= 1;
-    }else{
-        map.erase(root->val + last);
+    int ret = 0;
+    curr += root->val;
+    if (prefix.count(curr - targetSum)) {
+        ret = prefix[curr - targetSum];
     }
+
+    prefix[curr]++;
+    ret += dfs(root->left, curr, targetSum);
+    ret += dfs(root->right, curr, targetSum);
+    prefix[curr]--;
+
+    return ret;
 }
+
 int pathSum(TreeNode* root, int targetSum) {
-    // map[root] = root->val;
-    int count = 0;
-    target = targetSum;
-    map[0] = 1;
-    pathSumHelp(root, 0, count);
-    return count;
+    prefix[0] = 1;
+    return dfs(root, 0, targetSum);
 }
 
 int main(){

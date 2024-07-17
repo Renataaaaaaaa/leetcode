@@ -12,21 +12,21 @@ void combinationSumHelp(vector<int>& nums, int i, vector<int>& cur_res, int targ
     if (i == nums.size()){
         if (sum == target){
             res.push_back(cur_res);
-            // cur_res = {};
         }
         return;
     }
     //discard
-    int different_index = i + 1;
-    while(different_index < nums.size() && nums[different_index] == nums[i]){
-        different_index++;
+
+
+    int j = i + 1;
+    while(j < nums.size() && nums[j] == nums[i]){
+        j++;
     }
-   combinationSumHelp(nums, different_index, cur_res, target, res);
+    combinationSumHelp(nums, j, cur_res, target, res);
 
     //keep
     cur_res.push_back(nums[i]);
     combinationSumHelp(nums, i + 1, cur_res, target, res); //
-    // cur_res = {};
     cur_res.pop_back(); //ATTENTION
 }
 vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {

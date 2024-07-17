@@ -6,51 +6,42 @@ using namespace std;
 
 
 bool isValid(string s, int i, int j){
-    if (j - i >= 3 || i > j){
-        return false;
-    }
+    // if (j - i >= 3 || i > j){
+    //     return false;
+    // }
     if (s[i] == '0' && i != j){
         return false;
     }
-    cout << s.substr(i, j - i + 1) << endl;
-    // int num = 0;
     int num = stoi(s.substr(i, j - i + 1));
-    // try{
-    //     int num = stoi(s.substr(i, j - i + 1));
-    // }catch (exception){
-    //     return false;
-    // }
-    
     if (num >= 0 && num <= 255){ //00
         return true;
     }
     return false;
 }
-void restoreIpAddresses(string s, int i_index, int left, vector<string>& cur_res, vector<string>& res){
-    if (left == 0){
-        if (isValid(s, i_index, s.size() - 1)){
-            cur_res.push_back(s.substr(i_index, s.size() - 1 - i_index + 1));
-            string res_tmp = "";
-            for (auto str: cur_res){
-                res_tmp += str;
-                res_tmp += ".";
-            }
-            res.push_back(res_tmp.substr(0, res_tmp.size() - 1));
-            cur_res.erase(cur_res.end() - 1);
-            return;
-        }else{
-            return;
-        }
+string generateIp(vector<string> s){
+    string res = "";
+    for (int i = 0; i < s.size() - 1; i++){
+        res += s[i];
+        res += ".";
     }
-    for(int j = i_index; j < s.size(); j++){
+    res += s.back();
+    return res;
+}
+void restoreIpAddresses(string s, int i_index, int left, vector<string>& cur_res, vector<string>& res){
+    if (left == -1){
+        if (i_index == s.size()){
+            string validIp = generateIp(cur_res);
+            res.push_back(validIp);
+        }
+        return;
+    }
+    for(int j = i_index; j < s.size() && j < i_index + 3; j++){
         if (isValid(s, i_index, j)){
             cur_res.push_back(s.substr(i_index, j - i_index + 1));
             restoreIpAddresses(s, j + 1, left - 1, cur_res, res);
-
-            cur_res.erase(cur_res.end() - 1);
+            cur_res.pop_back();
         }
     }
-
 }
 vector<string> restoreIpAddresses(string s) {
     vector<string> cur_res;
@@ -61,5 +52,7 @@ vector<string> restoreIpAddresses(string s) {
 }
 
 int main(){
-    
+    for(auto item: restoreIpAddresses("25525511135")){
+        cout << item << endl;
+    }
 }

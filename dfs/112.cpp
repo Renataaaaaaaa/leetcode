@@ -1,32 +1,15 @@
 #include "utils.cpp"
 
-
-
-
-bool dfs(TreeNode* root, int targetSum){
-    if (root -> left == nullptr && root -> right == nullptr){ //leaf
-        if (root -> val == targetSum){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    int res = false;
-    if (root -> left != nullptr){
-        res |= dfs(root->left, targetSum - root->val);
-    }
-    if (root -> right != nullptr){
-        res |= dfs(root->right, targetSum - root->val);
-    }
-    
-    return res;
-}
-
 bool hasPathSum(TreeNode* root, int targetSum) {
-    if (root == nullptr){
+    if (root == nullptr) {
         return false;
     }
-    return dfs(root, targetSum);
+    if (root->left == nullptr && root->right == nullptr) {
+        return targetSum == root->val;
+    }
+    return hasPathSum(root->left, targetSum - root->val) ||
+               hasPathSum(root->right, targetSum - root->val);
+    
 }
 
 int main(){

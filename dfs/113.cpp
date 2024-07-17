@@ -2,20 +2,17 @@
 
 
 void dfs(TreeNode* root, vector<vector<int>> & paths, vector<int> path, int left){
-    path.push_back(root->val);
-
-    if (root ->left == nullptr && root->right == nullptr){
-        if (left == root->val){
-            paths.push_back(path);
-        }
+    if (root == nullptr){
         return;
     }
-    if (root -> left != nullptr){
-        dfs(root->left, paths, path, left - root->val);
+    path.push_back(root->val);
+
+    if (root ->left == nullptr && root->right == nullptr && left == root->val){
+        paths.push_back(path);
     }
-    if (root -> right != nullptr){
-        dfs(root->right, paths, path, left - root->val);
-    }
+
+    dfs(root->left, paths, path, left - root->val);
+    dfs(root->right, paths, path, left - root->val);
 }
 
 vector<vector<int>> pathSum(TreeNode* root, int targetSum) {

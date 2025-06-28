@@ -17,6 +17,7 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         queue.emplace(i, nums[i]);
     }
     vector<int> res;
+    std::cout << queue.top().second << std::endl;
     res.push_back(queue.top().second);
     for(int i = k; i < nums.size(); i++){
         queue.emplace(i, nums[i]);

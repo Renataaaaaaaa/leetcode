@@ -26,15 +26,12 @@ int partition(vector<int>& data, int i, int j){
         while(p2 > p1 && data[p2] >= pivot){
             p2--;
         }
-        //p2 < pivot and replace the first pivot
         data[p1] = data[p2];
         while(p2 > p1 && data[p1] <= pivot){
             p1++;
         }
         data[p2] = data[p1];
-        //p1 > pivot
     }
-    // swap(data, pivot, p2);
     data[p2] = pivot;
     return p2;
 }
@@ -44,10 +41,8 @@ int findKthLargest(vector<int>& nums, int k) {
     int j = nums.size() - 1;
     while((nums.size() - pivot_index) != k){
         if ((nums.size() - pivot_index) > k){
-            i = pivot_index + 1;
             pivot_index = partition(nums, pivot_index + 1, j);
         }else{
-            j = pivot_index - 1;
             pivot_index = partition(nums, i, pivot_index - 1);
         }
     }

@@ -4,7 +4,7 @@
 using namespace std;
 
 ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode* dummy = new ListNode(0);
+    ListNode* dummy = new ListNode(-1);
     dummy->next = head;
 
     ListNode* fast = dummy;

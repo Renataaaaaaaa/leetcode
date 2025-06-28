@@ -6,10 +6,8 @@ using namespace std;
 
 
 
-class Solution {
 
 bool valid = false;
-public:
 void solveSudokuHelp(vector<vector<char>>& board, int i, int j, vector<vector<bool>>& line, vector<vector<bool>>& column, vector< vector <vector<bool> > >& block){
     if (i == 9){
         cout << "suceess" << endl;
@@ -47,7 +45,6 @@ void solveSudokuHelp(vector<vector<char>>& board, int i, int j, vector<vector<bo
         }
     }
 }
-
 void solveSudoku(vector<vector<char>>& board) {
     // bool nine [][3][3];
     vector<vector<bool>> line(9, vector<bool>(9, false));
@@ -64,7 +61,7 @@ void solveSudoku(vector<vector<char>>& board) {
     }
     solveSudokuHelp(board, 0, 0, line, column, block);
 }
-};
+
 
 int main(){
     vector<vector<char>> content = {{'.','.','9','7','4','8','.','.','.'},

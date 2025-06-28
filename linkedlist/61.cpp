@@ -5,37 +5,32 @@ using namespace std;
 
 ListNode* rotateRight(ListNode* head, int k) {
 
-    if (head == nullptr || k <= 1 || head->next == nullptr){
+    if (head == nullptr || k < 1 || head->next == nullptr){
         return head;
     }
-    ListNode* head_old = head;
+    ListNode* iter = head;
     int num = 1;
-    while(head->next != nullptr){
-        head=head->next;
+    while(iter->next != nullptr){
+        iter=iter->next;
         num++;
     }
-    ListNode* end = head;
-    cout << "end" << end->val << endl;
+    ListNode* end = iter;
 
-    head = head_old;
     if (k % num == 0){
-        return head_old;
+        return head;
     }
     k = (num - (k % num)) - 1;
-    cout << k << endl;
+    iter = head;
     for (int i = 0; i < k ; i++){
-        head = head->next;
+        iter = iter->next;
     }
-    ListNode* breakpoint = head;
-    cout << "breakpoint" << breakpoint->val << endl;
-
-    ListNode* next = breakpoint->next;
-    breakpoint->next = nullptr;
-    end->next = head_old;
+    ListNode* next = iter->next;
+    iter->next = nullptr;
+    end->next = head;
     return next;
 }
 
 int main(){
-    vector<int> data = {1,2,3};
-    printLinkedList(rotateRight(generate(data), 3));
+    vector<int> data = {1,2};
+    printLinkedList(rotateRight(generate(data), 1));
 }

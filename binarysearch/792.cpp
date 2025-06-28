@@ -29,7 +29,6 @@ bool isSubsequence(string s, string t, vector<vector<int>> chars){
     for(int i = 0; i < s.size(); i++){
         vector<int> nums = chars[s[i] - '0'];
         int index = left_bound(nums, left);
-        // cout << s[i] << " " << index << " " << nums[index] << endl;
         if (index == nums.size()){
             return false;
         }else{

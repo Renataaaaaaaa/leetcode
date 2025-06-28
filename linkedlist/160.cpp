@@ -14,27 +14,27 @@ struct ListNode {
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-    ListNode* p = headA;
-    ListNode* q = headB;
-    bool p_changed = false, q_changed = false;
-    while(p != nullptr && q != nullptr && p != q){
-        if (!p_changed && p -> next == nullptr){
-            p = headB;
-            p_changed = true;
-        }else{
-            p = p->next;
+        ListNode* p = headA;
+        ListNode* q = headB;
+        bool p_changed = false, q_changed = false;
+        while(p != nullptr && q != nullptr && p != q){
+            if (!p_changed && p -> next == nullptr){
+                p = headB;
+                p_changed = true;
+            }else{
+                p = p->next;
+            }
+            if (!q_changed && q -> next == nullptr){
+                q = headA;
+                q_changed = true;
+            }else{
+                q = q->next;
+            }
         }
-        if (!q_changed && q -> next == nullptr){
-            q = headA;
-            q_changed = true;
+        if (p != q){
+            return nullptr;
         }else{
-            q = q->next;
+            return p;
         }
-    }
-    if (p != q){
-        return nullptr;
-    }else{
-        return p;
-    }
     }
 };

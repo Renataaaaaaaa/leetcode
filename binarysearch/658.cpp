@@ -33,9 +33,9 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 
 int main(){
     // vector<int> data = {1,1,1,10,10,10};
-    vector<int> data = {1,1,1,9,10,10,10};
+    vector<int> data = {1,2,3,4,5};
     // vector<int> data = {1};
-    for(auto item: findClosestElements(data, 4, 0)){
+    for(auto item: findClosestElements(data, 1, 4)){
         cout << item << endl;
     }
 }

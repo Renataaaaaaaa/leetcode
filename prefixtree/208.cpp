@@ -15,6 +15,7 @@ class TreeNodee{
         }
     }
 };
+
 class Trie {
 public:
     TreeNodee* root;
@@ -25,7 +26,6 @@ public:
     void insert(string word) {
         TreeNodee* root_move = root;
         for(auto c: word){
-            bool find = false;
             if (root_move->children[c - 'a'] == nullptr){
                 root_move->children[c - 'a'] = new TreeNodee();
             }

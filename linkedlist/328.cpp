@@ -8,27 +8,25 @@ ListNode* oddEvenList(ListNode* head) {
     if (head == nullptr || head->next == nullptr || head->next->next == nullptr){
         return head;
     }
-    ListNode dummy(0);
-    dummy.next = head;
-    ListNode* low = &dummy;
-    ListNode* fast = dummy.next;
+
+    ListNode* low = head;
+    ListNode* fast = head->next;
     ListNode* after_fast = nullptr;
-    while(fast != nullptr && fast->next != nullptr && fast->next->next != nullptr){
-        fast = fast->next;
-        low = low->next;
-
-
+    while(fast != nullptr && fast->next != nullptr){
         after_fast = fast->next;
+        fast->next = after_fast->next;
 
-        fast->next = fast->next->next;
         after_fast->next = low->next;
         low->next = after_fast;
-        printLinkedList(head);
+
+        low = low->next;
+        fast = fast->next;
+        // printLinkedList(head);
     }
     return head;
 
 }
 int main(){
-    vector<int> data = {2,1,3,5,6,4,7};
+    vector<int> data = {1,2,3,4,5};
     printLinkedList(oddEvenList(generate(data)));
 }

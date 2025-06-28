@@ -22,7 +22,6 @@ vector<vector<int>> generateMatrix(int n) {
         }
         right_bound--;
         if (k > n * n){
-            // cout << k << endl;
             break;
         }
         for(int j = right_bound; j >= left_bound; j--){
@@ -33,8 +32,6 @@ vector<vector<int>> generateMatrix(int n) {
             matrix[i][left_bound] = k++;
         }
         left_bound++;
-
-        // cout << res.size() << endl;
     }
     return matrix;
 }

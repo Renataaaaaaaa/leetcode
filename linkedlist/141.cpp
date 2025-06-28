@@ -17,7 +17,6 @@ bool hasCycle(ListNode *head) {
     ListNode* low = head;
 
     while(fast != nullptr && fast->next != nullptr){ //ATTENTION: 注意双指针结束位置
-        cout << fast->val << " " << low->val << endl;
         fast = fast->next->next;
         low = low->next;
         if (fast == low){

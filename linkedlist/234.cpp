@@ -4,14 +4,15 @@
 using namespace std;
 
 ListNode* reverseList(ListNode* l1){ //ATTENTION: remember to use this one
-    ListNode* last = nullptr;
-    while(l1!=nullptr){
-        ListNode* tmp = l1->next;
-        l1->next = last;
-        last = l1;
-        l1 = tmp;
+    ListNode* prev = nullptr;
+    ListNode * next = nullptr;
+    while(l1 != nullptr){
+        ListNode* next = l1->next;
+        l1->next = prev;
+        prev = l1;
+        l1 = next;
     }
-    return last;
+    return prev;
 }
 
 ListNode* getMiddleNode(ListNode* head) {
@@ -27,9 +28,8 @@ ListNode* getMiddleNode(ListNode* head) {
 bool isPalindrome(ListNode* head) {
     
     ListNode* middleNode = getMiddleNode(head);
-    cout << middleNode->val << endl;
     middleNode = reverseList(middleNode);
-    cout << middleNode->val << endl;
+
     while(middleNode != nullptr){
         if (head->val != middleNode->val){
             return false;

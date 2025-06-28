@@ -16,7 +16,6 @@ vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
             nums2_nextgreater[stk.top()] = nums2[i];
             stk.pop();
         }
-        // nums2_nextgreater[nums2[i]] = stk.empty() ? -1 : stk.top();
         stk.push(nums2[i]);
     }
     vector<int> res;

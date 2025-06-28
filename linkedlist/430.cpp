@@ -32,7 +32,6 @@ Node* flattenHelp(Node* head) {
             head = head->next;
         }
     }
-    cout << "45" << endl;
     return head;
 }
 Node* flatten(Node* head){

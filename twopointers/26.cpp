@@ -5,18 +5,18 @@
 using namespace std;
 
 int removeDuplicates(vector<int>& nums) {
-    int slow = 0;
-    int fast = 1;
+    int unique = 0;
+    int right = 1;
     //不想等动slow 想等动fast
-    while(fast < nums.size()){
-        if (nums[fast] == nums[slow]){
-            fast++;
+    while(right < nums.size()){
+        if (nums[right] == nums[unique]){
+            right++;
         }else{
-            nums[slow + 1] = nums[fast];
-            slow++;
+            nums[unique + 1] = nums[right];
+            unique++;
         }
     }
-    return slow + 1;
+    return unique + 1;
 }
 int main(){
     vector<int> nums = {1,2};

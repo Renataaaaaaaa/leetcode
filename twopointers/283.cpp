@@ -11,11 +11,11 @@ void swap(vector<int>& nums, int i, int j){
 }
 
 void moveZeroes(vector<int>& nums) {
-    int left = 0, right = 0;
+    int p_0 = 0, right = 0;
     while (right < nums.size()){
         if (nums[right] != 0){
-            swap(nums, left, right);
-            left++;
+            swap(nums, p_0, right);
+            p_0++;
         }
         right++;
     }

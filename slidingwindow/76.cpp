@@ -3,7 +3,7 @@
 #include <unordered_map>
 using namespace std;
 
-bool allZero(unordered_map<char, int> nums){
+bool allZero(unordered_map<char, int>& nums){
     for (auto pair: nums){
         if (pair.second > 0){
             return false;

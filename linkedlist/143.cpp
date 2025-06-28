@@ -10,7 +10,7 @@ ListNode* getMid(ListNode* head){
         low = low->next;
         fast = fast->next->next;
     }
-    ListNode* res = low->next;
+    ListNode* res = low -> next;
     low->next = nullptr;
     return res;
 }
@@ -44,7 +44,7 @@ void reorderList(ListNode* head) {
 }
 
 int main(){
-    vector<int> data = {1};
+    vector<int> data = {1,2,3};
     ListNode* node = generate(data);
     reorderList(node);
     // cout << node->val << endl;

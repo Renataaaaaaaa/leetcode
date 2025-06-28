@@ -14,7 +14,7 @@ int characterReplacement(string s, int k) {
     int left = 0, right = 0;
     while (right < n) {
         num[s[right] - 'A']++;
-        maxn = max(maxn, num[s[right] - 'A']);
+        maxn = max(maxn, num[s[right] - 'A']); //历史窗口内存在的数字的最大值，也是只增不减
         if (right - left + 1 - maxn > k) { //ATTENION: (right - left + 1 - maxn) 被替换过的数量
             num[s[left] - 'A']--;
             left++;

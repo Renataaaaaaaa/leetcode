@@ -24,7 +24,6 @@ int evalRPN(vector<string>& tokens) {
             }else if (str == "/"){
                 res = op2 / op1;
             }
-            cout << res << endl;
             nums.push(res);
         }
     }

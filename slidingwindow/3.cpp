@@ -16,13 +16,13 @@ int lengthOfLongestSubstring(string s) {
     // cur.insert(s[0]);
     int res = 0;
     while(right < s.size()){
-        cur.insert(s[right]);
-        while(cur.find(s[left]) != cur.end()){
+        while(cur.find(s[right]) != cur.end()){
             cur.erase(s[left]);
             left++;
         }
+        cur.insert(s[right]);
         cout << left << " " << right << endl;
-        res = max(res, right - left);
+        res = max(res, right - left + 1);
         right++;
     }
     return res;

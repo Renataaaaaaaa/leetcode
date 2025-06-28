@@ -23,8 +23,7 @@ int largestRectangleArea(vector<int>& heights) {
                 int height = heights[poles.top()];
                 poles.pop(); //ATTENTION
                 int width = (i - 1) - (poles.size() != 0 ? (poles.top() + 1) : 0) + 1; //
-                int area = height * width;
-                largestArea = max(area, largestArea);
+                largestArea = max(height * width, largestArea);
             }
             poles.push(i);
         }
@@ -33,14 +32,8 @@ int largestRectangleArea(vector<int>& heights) {
     while(poles.size() != 0){ //right to rightmost
         int height = heights[poles.top()];
         poles.pop();
-        int width = 0;
-        if (poles.size() != 0){
-            width = (heights.size() - 1) - (poles.top() + 1) + 1; //ATTENTION
-        }else{
-            width = heights.size();
-        }
-        int area = height * width;
-        largestArea = max(area, largestArea);
+        int width = (heights.size() - 1) - (poles.size() != 0 ? (poles.top() + 1) : 0) + 1;
+        largestArea = max(height * width, largestArea);
     }
     return largestArea;
 }
